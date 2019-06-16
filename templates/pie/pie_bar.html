@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Hasil</title>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js'></script>
+</head>
+
+<body>
+<!-- <div></div> -->
+    <!-- <canvas id="chart" width="600" height="400"></canvas> -->
+    <canvas id="myChart" width="400" height="400"></canvas>
+<script>
+new Chart(document.getElementById("myChart"), {
+    type: 'doughnut',
+    data: {
+      labels: ['POSITIF', 'NEGATIF'],
+      // labels: {{label}},
+      datasets: [
+        {% for item, colors in set %}
+          {
+            data: "{{item}}",
+            backgroundColor : "{{colors}}"
+          },
+        {% endfor %}
+        
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Predicted world population (millions) in 2050'
+      }
+    }
+});
+
+</script>
+</body>
+</html>

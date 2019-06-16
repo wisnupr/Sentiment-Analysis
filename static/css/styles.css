@@ -1,0 +1,18 @@
+body{
+	font:15px/1.5 Arial, Helvetica,sans-serif;
+	padding: 0px;
+	background-color:#f4f3f3;
+}
+
+$gray-base: #000 !default;
+$gray-darker: lighten($gray-base, 13.5%) !default; // #222
+$gray-dark: #67655D; // #333
+$gray: #B74934; // #555
+$gray-light: #AA9A66; // #777
+$gray-lighter: #A8A8A1; // #eee
+ 
+$brand-primary: #577492; // #337ab7
+$brand-success: #5cb85c !default;
+$brand-info: #5bc0de !default;
+$brand-warning: #f0ad4e !default;
+$brand-danger: #d9534f !default;

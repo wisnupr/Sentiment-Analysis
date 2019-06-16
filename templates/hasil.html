@@ -1,0 +1,130 @@
+{% extends "bootstrap/base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="utf-8" />
+   <title>Sentiment Analysis</title>
+     <!-- Latest compiled and minified CSS -->
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+   Optional theme
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
+
+   <!-- Latest compiled and minified JavaScript -->
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+   <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script>
+</head>
+
+<body>
+   <nav class="navbar navbar-inverse navbar-fixed-top">
+     <div class="container-fluid">
+       <!-- Brand and toggle get grouped for better mobile display -->
+       <div class="navbar-header">
+         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+           <span class="sr-only">Toggle navigation</span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+         </button>
+         <a class="navbar-brand" href="#">Sentiment Analysis</a>
+       </div>
+
+       <!-- Collect the nav links, forms, and other content for toggling -->
+       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">   
+         <ul class="nav navbar-nav navbar-right">
+           <li><a href="{{ url_for('index')}}"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span> Analysis</a></li>
+           <li><a href="#"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> About</a></li>
+         </ul>
+       </div><!-- /.navbar-collapse -->
+     </div><!-- /.container-fluid -->
+   </nav>
+<div class="container" style="padding-top:80px">
+   <div class="row">
+      <div class="col-sm-6">
+         <!-- <div class="col-sm-6 col-sm-offset-3"> -->
+            <h4 align="center"></h4>
+            <div align="center">
+            <canvas id="chart" width="350" height="250"></canvas>   
+            </div>
+         <!-- </div> -->
+      </div>
+      <div class="col-sm-6">
+         <h4></h4>
+         <table class="table">
+            <tr>
+               <th>#</th>
+               <th>Label</th>
+               <th>Value</th>
+            </tr>
+            {% for lbls, vals in legenda %}
+            <tr>
+               <td>
+               {% if lbls ==  'POSITIF' %}
+               <span class="glyphicon glyphicon-stop" aria-hidden="true" style="color:#46BFBD"></span></td>
+               {% elif lbls == 'NEGATIF' %}
+               <span class="glyphicon glyphicon-stop" aria-hidden="true" style="color:#F7464A"></span></td>
+               {% endif%}
+               <td>{{lbls}}</td>
+               <td>{{vals}}</td>
+            </tr> 
+            {% endfor %}   
+         </table>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-sm-12" style="margin-top:10px">
+         <div class="panel panel-primary">
+           <!-- Default panel contents -->
+            <div class="panel-heading"><span class="glyphicon glyphicon-list"></span> Result Analysis</div>
+            <table class="table table-hover">
+               <tr>
+                  <th>Data</th>
+                  <th>Label</th>
+               </tr>
+               {% for rw, clas in clasification %}
+               <tr>
+                  <td>{{rw}}</td>
+                  <td>
+                     {% if clas ==  'POSITIF' %}
+                     <span class="glyphicon glyphicon-plus" aria-hidden="true" style="color:#46BFBD"></span>
+                     {% elif clas == 'NEGATIF' %}
+                     <span class="glyphicon glyphicon-minus" aria-hidden="true" style="color:#F7464A"></span>
+                     {% endif%}
+                  </td>
+               </tr> 
+               {% endfor %}   
+            </table>
+         </div>
+      </div>
+   </div>
+</div>
+
+    
+    <script>
+      var pieData = [
+        {% for item, label, colors in set %}
+          {
+            value: "{{item}}",
+            label: "{{label}}",
+            color: "{{colors}}"
+          },
+        {% endfor %}
+      ];
+      // get bar chart canvas
+      var mychart = document.getElementById("chart").getContext("2d");
+      steps = 10
+      max = {{ max }}
+      // draw pie chart
+      new Chart(document.getElementById("chart").getContext("2d")).Pie(pieData);
+    </script>
+</body>
+</html>
+
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<link rel="stylesheet"
+      href="{{url_for('.static', filename='css/styles.css')}}">
+{% endblock %}
