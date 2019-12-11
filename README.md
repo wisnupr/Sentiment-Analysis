@@ -1,4 +1,4 @@
-# Aplikasi Mini Machine Learning Sentiment Analisis Twitter Pemilu dengan Menggunakan Metode ANN Artificial Neural Network
+# Aplikasi Sentiment Analisis Twitter Pemilu dengan Menggunakan Metode ANN Artificial Neural Network
 
 ## Python Version
 
