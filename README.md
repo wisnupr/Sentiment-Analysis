@@ -30,7 +30,7 @@ Aplikasi ini di buat dengan konsep machine learning ada beberapa tahapan untuk m
  5. Melakukan training hingga mendapatkan akurasi yang bagus dengan mengkombinasikan beberapa parameter seperti jumlah iterasi atau merubah arsitekturnya.
  6. Setelah mendapat akurasi yang bagus eksport model ke format h5 atau pkt
  7. Melakukan testing
- 8. Jika sudah buat interface dan selesai
+ 8. Membuat interface dan selesai
 
 ## Pengembangan
 
